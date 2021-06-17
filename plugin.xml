@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-outsystems-devicerisk" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>DeviceRisk</name>
+
+    <js-module name="DeviceRisk" src="www/DeviceRisk.js">
+        <clobbers target="DeviceRisk" />
+    </js-module>
+
+    <platform name="ios">
+        <prefereces name="SUBKEY"/>
+        <config-file parent="/*" target="config.xml">
+            <feature name="DeviceRisk">
+                <param name="ios-package" value="DeviceRisk" />
+            </feature>
+        </config-file>
+        
+        <hook type="before_plugin_install" src="hooks/outsystems/npmInstall.js"/>
+
+        <hook type="after_plugin_install" src="hooks/ios/addBuildPhases.js"/>
+		
+		<hook type="after_plugin_add" src="hooks/ios/copyScripts.js"/>
+
+		<hook type="after_platform_add" src="hooks/ios/addBuildPhases.js"/>
+        
+        <source-file src="src/ios/AppDelegate+DeviceRisk.m" />
+        <header-file src="src/ios/AppDelegate+DeviceRisk.h" />
+        <source-file src="src/ios/DeviceRisk.m" />
+        <header-file src="src/ios/DeviceRisk.h" />
+
+        <config-file target="*-Info.plist" parent="IOVSubKey">
+            <string>$SUBKEY</string>
+		</config-file>
+
+        <config-file parent="com.apple.developer.networking.wifi-info" target="*/Entitlements-Debug.plist">
+            <true/>
+          </config-file>
+          <config-file parent="com.apple.developer.networking.wifi-info" target="*/Entitlements-Release.plist">
+	        <true/>
+          </config-file>
+        
+        <framework src="CoreLocation.framework"/>
+
+		<source-file src="libs/ios/9F57734E-35EC-3AAB-9924-0B96F11728BA.bcsymbolmap" target-dir="Frameworks-bcsymbolmap"/>
+		<source-file src="libs/ios/FraudForce.framework" target-dir="Frameworks-universal" framework="true"/>
+        <framework src="libs/ios/FraudForce.framework" embed="true" custom="true"/>
+
+    </platform>
+
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DeviceRisk">
+                <param name="android-package" value="com.outsystems.devicerisk.DeviceRisk" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml" />
+        
+        <source-file src="src/android/DeviceRisk.java" target-dir="src/com/outsystems/devicerisk" />
+		<source-file src="libs/android/fraudforce-lib-release-4.3.0.aar" target-dir="src/main/libs"/>
+		<source-file src="libs/android/fraudforce-lib-release-4.3.0.aar" target-dir="libs"/>
+
+		<framework src="src/android/DeviceRisk.gradle" custom="true" type="gradleReference"/>
+    </platform>
+</plugin>
