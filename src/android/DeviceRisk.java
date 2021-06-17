@@ -23,10 +23,21 @@ public class DeviceRisk extends CordovaPlugin {
         if (action.equals("setup")) {
             String key = args.getString(0);
             this.setup(key, callbackContext);
-            this.webviewSetup(callbackContext);
+            //this.webviewSetup(callbackContext);
             return true;
+        }else if(action.equals("getBlackBox")){
+            getBlackBox(callbackContext);
         }
         return false;
+    }
+
+    private void getBlackBox(CallbackContext callbackContext){
+        String blackbox = FraudForceManager.getInstance().getBlackbox(cordova.getActivity().getApplicationContext());
+        if(blackbox != null){
+            callbackContext.success(blackbox);
+        }else{
+            callbackContext.error("FraudForce Blackbox returned empty string");
+        }
     }
 
     private void setup(String key, CallbackContext callbackContext) {

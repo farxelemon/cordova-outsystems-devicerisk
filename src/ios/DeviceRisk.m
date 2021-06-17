@@ -5,6 +5,21 @@
 
 @implementation DeviceRisk
 
+-(void)getBlackBox:(CDVInvokedUrlCommand*)command{
+    NSString * blackbox = FraudForce.blackbox;
+    CDVPluginResult* result;
+
+    if(blackbox != nil){
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                    messageAsString:blackbox];
+    }else{
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                    messageAsString:@"FraudForce Blackbox returned empty string"];
+    }
+                              
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
 - (void)setupWebView {
     // Set up on load script, via a WKUserScript that is injected "AtDocumentEnd".
     // The script both populates the textarea element (whose id=bb) with a blackbox string, as well as
