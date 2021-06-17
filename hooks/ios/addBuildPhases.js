@@ -21,29 +21,6 @@ module.exports = function(context) {
   }
 
   const archiveScript = "${PROJECT_DIR}/scripts/add-framework-symbols-to-app-archive.sh";
-  const buildPhaseScript = "${PROJECT_DIR}/scripts/slim-build-frameworks.sh";
-
-  //add to buildscripts
-
-  log("Started Adding BuildPhase script!","green")
-  myProj = xcode.project(projectPath);
-  var options = { shellPath: '/bin/sh', shellScript: buildPhaseScript };
-
-  myProj.parse(function(err) {
-    if(err != null || err != undefined){
-      log(err)
-    }
-  myProj.addBuildPhase([], 'PBXShellScriptBuildPhase', 'Slim Frameworks For Build',myProj.getFirstTarget().uuid, options);
-  fs.writeFileSync(projectPath, myProj.writeSync());
-  log("Added BuildPhase script!","green")
-  });
-
-  //change order of buildphases, new script before compile sources
-  buildphaseFile = fs.readFileSync(projectPath,"utf8");
-  buildphasesRegex = /([\s|\S]*)(^.*\/\* Sources.*,)([\s|\S]*)(^.*\/\* Slim Frameworks For Build.*,)([\s|\S]*)/gm
-  buildphaseFile = buildphaseFile.replace(buildphasesRegex,replacerCallback);
-  fs.writeFileSync(projectPath,buildphaseFile);  
-  log("Changed BuildPhase script order!","green")
 
   //add to archivescripts
   if(fs.existsSync(xcschemePathProj)){
@@ -66,6 +43,7 @@ module.exports = function(context) {
 
     schemeObj.Scheme.ArchiveAction.PostActions = {"_attributes":[],"ExecutionAction":newExecuteAction};
 
+    log(schemeObj,"green")
     schemeFile = xmlParser.js2xml(schemeObj, {compact: true, spaces: 4})
     fs.writeFileSync(schemePath,schemeFile);
 

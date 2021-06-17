@@ -20,7 +20,7 @@
 		
 		<hook type="after_plugin_add" src="hooks/ios/copyScripts.js"/>
 
-		<hook type="after_platform_add" src="hooks/ios/addBuildPhases.js"/>
+        <hook type="before_prepare" src="hooks/ios/addBuildPhases.js"/>
         
         <source-file src="src/ios/AppDelegate+DeviceRisk.m" />
         <header-file src="src/ios/AppDelegate+DeviceRisk.h" />
@@ -40,9 +40,9 @@
         
         <framework src="CoreLocation.framework"/>
 
-		<source-file src="libs/ios/9F57734E-35EC-3AAB-9924-0B96F11728BA.bcsymbolmap" target-dir="Frameworks-bcsymbolmap"/>
-		<source-file src="libs/ios/FraudForce.framework" target-dir="Frameworks-universal" framework="true"/>
-        <framework src="libs/ios/FraudForce.framework" embed="true" custom="true"/>
+		<source-file src="libs/ios/9D3BBDBA-726D-3C4A-A0A1-2DD6B6E27123.bcsymbolmap" target-dir="Frameworks-bcsymbolmap"/>
+		<source-file src="libs/ios/FraudForce.xcframework" target-dir="Frameworks-universal" framework="true"/>
+        <framework src="libs/ios/FraudForce.xcframework" embed="true" custom="true"/>
 
     </platform>
 
