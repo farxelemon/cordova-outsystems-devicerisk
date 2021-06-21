@@ -1,7 +1,18 @@
 #import "AppDelegate+DeviceRisk.h"
+#import <objc/runtime.h>
+#import "MainViewController.h"
 
+#define kAppDelegateDeviceRiskLocMngr @"tkLocationManager"
 
 @implementation AppDelegate (DeviceRisk)
+
+-(void)setLocationManager:(CLLocationManager *)locationMngr{
+    objc_setAssociatedObject(self, kAppDelegateDeviceRiskLocMngr, locationMngr, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(CLLocationManager*)locationManager{
+    return objc_getAssociatedObject(self, kAppDelegateDeviceRiskLocMngr);
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -27,7 +38,8 @@
     }
     
     [FraudForce delegation:self];
-    return YES;
+    self.viewController = [[MainViewController alloc] init];
+    return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 	
 - (void)applicationDidBecomeActive:(UIApplication *)application
