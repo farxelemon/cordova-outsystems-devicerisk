@@ -7,7 +7,7 @@
     </js-module>
 
     <platform name="ios">
-        <prefereces name="SUBKEY"/>
+        <prefereces name="SUBKEY" />
         <config-file parent="/*" target="config.xml">
             <feature name="DeviceRisk">
                 <param name="ios-package" value="DeviceRisk" />
@@ -16,9 +16,12 @@
         
         <hook type="before_plugin_install" src="hooks/outsystems/npmInstall.js"/>
 
+        <hook type="after_plugin_install" src="hooks/ios/addEmbeded.js" />
+
         <hook type="after_plugin_install" src="hooks/ios/addBuildPhases.js"/>
 		
 		<hook type="after_plugin_add" src="hooks/ios/copyScripts.js"/>
+
 
         <hook type="before_prepare" src="hooks/ios/addBuildPhases.js"/>
         
@@ -41,7 +44,7 @@
         <framework src="CoreLocation.framework"/>
 
 		<source-file src="libs/ios/9D3BBDBA-726D-3C4A-A0A1-2DD6B6E27123.bcsymbolmap" target-dir="Frameworks-bcsymbolmap"/>
-		<source-file src="libs/ios/FraudForce.xcframework" target-dir="Frameworks-universal" framework="true"/>
+		
         <framework src="libs/ios/FraudForce.xcframework" embed="true" custom="true"/>
 
     </platform>

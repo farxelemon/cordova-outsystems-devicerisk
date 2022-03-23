@@ -12,6 +12,6 @@ buildscript {
      }
  }
  dependencies {
-     compile fileTree(dir: 'libs', include: ['*.jar'])
-     compile(name:'fraudforce-lib-release-4.3.0', ext:'aar')
+     implementation fileTree(dir: 'libs', include: ['*.jar'])
+     implementation(name:'fraudforce-lib-release-4.3.0', ext:'aar')
  }
