@@ -59,7 +59,7 @@
         
         <source-file src="src/android/DeviceRisk.java" target-dir="src/com/outsystems/devicerisk" />
 		<source-file src="libs/android/fraudforce-lib-release-4.3.0.aar" target-dir="src/main/libs"/>
-		<source-file src="libs/android/fraudforce-lib-release-4.3.0.aar" target-dir="libs"/>
+		<!-- <source-file src="libs/android/fraudforce-lib-release-4.3.0.aar" target-dir="libs"/> -->
 
 		<framework src="src/android/DeviceRisk.gradle" custom="true" type="gradleReference"/>
     </platform>
